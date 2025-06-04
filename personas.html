@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fitness Tracker Hub.bo - Frame Overview</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome per le icone -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #007bff; /* Blu primario */
+            --primary-color-dark: #0056b3;
+            --secondary-color: #28a745; /* Verde secondario per bottoni specifici */
+            --secondary-color-dark: #1e7e34;
+            --light-gray: #f8f9fa;
+            --medium-gray: #e9ecef;
+            --dark-gray: #6c757d;
+            --text-color: #343a40;
+            --background-gradient: linear-gradient(135deg, #e0eafc 0%, #f8f9fa 100%);
+            --card-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            --mockup-shadow: 0 15px 40px rgba(0, 0, 0, 0.2), 0 0 0 10px #000;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            background: var(--background-gradient);
+            color: var(--text-color);
+            display: block; /* rimuovi flex dal body */
+            height: auto;
+            min-height: 100vh;
+            padding: 0; /* Rimuovi padding verticale */
+            box-sizing: border-box;
+        }
+        .center-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: calc(100vh - 80px); /* lascia spazio per header */
+            width: 100%;
+        }
+        main {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center; /* Centra anche main */
+            width: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            width: 100%;
+        }
+
+        header h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.8em; /* Titolo più grande */
+            color: var(--primary-color);
+            font-weight: 700;
+            letter-spacing: -1px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+
+        .iphone-mockup {
+            width: 380px; /* Leggermente più grande per un look moderno */
+            height: 820px;
+            background-color: #1c1c1e;
+            border-radius: 50px; /* Bordi più arrotondati */
+            padding: 20px; /* Padding aumentato */
+            box-shadow: var(--mockup-shadow);
+            position: relative;
+            margin-bottom: 40px; /* Spazio per la legenda */
+        }
+
+        .iphone-notch {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 220px;
+            height: 34px;
+            background-color: #1c1c1e;
+            border-bottom-left-radius: 20px;
+            border-bottom-right-radius: 20px;
+            z-index: 10;
+        }
+
+        .iphone-screen {
+            width: 100%;
+            height: 100%;
+            background-color: #ffffff;
+            border-radius: 30px; /* Arrotondamento schermo aumentato */
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .status-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 22px 8px; /* Padding aggiornato */
+            font-size: 0.85em;
+            color: #333;
+            background-color: #fff;
+            z-index: 20;
+            position: relative;
+            font-weight: 500;
+        }
+
+        .status-bar i {
+            margin-left: 6px;
+        }
+
+        .app-content {
+            flex-grow: 1;
+            position: relative;
+            overflow-y: hidden;
+        }
+
+        .app-section {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            padding: 18px;
+            box-sizing: border-box;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            background-color: #fff; /* Sfondo bianco per le sezioni */
+        }
+
+        .app-section.active-section {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .app-section h2 {
+            font-family: 'Montserrat', sans-serif;
+            margin-top: 0;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+            font-size: 1.9em;
+            border-bottom: 2px solid var(--medium-gray);
+            padding-bottom: 12px;
+            font-weight: 600;
+        }
+        .app-section h2 i {
+            margin-right: 12px;
+        }
+
+        .content-scrollable {
+            flex-grow: 1;
+            overflow-y: auto;
+            padding-right: 8px; /* Più spazio per scrollbar */
+        }
+
+        .content-scrollable::-webkit-scrollbar {
+            width: 7px;
+        }
+        .content-scrollable::-webkit-scrollbar-thumb {
+            background-color: var(--primary-color);
+            border-radius: 10px;
+        }
+        .content-scrollable::-webkit-scrollbar-track {
+            background-color: var(--medium-gray);
+        }
+
+        .bottom-nav {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            background-color: var(--light-gray);
+            border-top: 1px solid var(--medium-gray);
+            padding: 12px 0 22px; /* Padding aggiornato per safety area */
+            width: 100%;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            color: var(--dark-gray);
+            font-size: 0.7em;
+            flex: 1;
+            text-align: center;
+            transition: color 0.2s ease;
+            font-weight: 500;
+        }
+
+        .nav-item i {
+            font-size: 1.6em;
+            margin-bottom: 5px;
+        }
+
+        .nav-item.active {
+            color: var(--primary-color);
+        }
+        .nav-item:hover {
+            color: var(--primary-color-dark);
+        }
+
+        /* Stili per i contenuti delle sezioni */
+        .plan-card, .user-card, .advice-card, .exercise-item-card {
+            background-color: #fff;
+            border: 1px solid var(--medium-gray);
+            border-radius: 10px; /* Bordi più arrotondati */
+            padding: 18px;
+            margin-bottom: 18px;
+            box-shadow: var(--card-shadow);
+            transition: transform 0.2s ease-in-out;
+        }
+        .plan-card:hover, .user-card:hover, .advice-card:hover, .exercise-item-card:hover {
+            transform: translateY(-3px);
+        }
+
+
+        .plan-card h3, .user-card h4, .advice-card h4, .exercise-item-card h4 {
+            font-family: 'Montserrat', sans-serif;
+            margin-top: 0;
+            margin-bottom: 8px;
+            color: var(--text-color);
+            font-weight: 600;
+        }
+
+        .btn-start, .btn-add-plan, .btn-follow, .btn-refresh-advice, .btn-edit-profile, .btn-add-exercise {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 8px; /* Bordi più arrotondati */
+            cursor: pointer;
+            font-size: 0.9em;
+            transition: background-color 0.2s ease, transform 0.2s ease;
+            display: inline-block; /* Cambiato da block */
+            width: auto; /* Cambiato da fit-content */
+            margin-top: 12px;
+            font-weight: 500;
+            text-align: center;
+        }
+        .btn-start:hover, .btn-add-plan:hover, .btn-follow:hover, .btn-refresh-advice:hover, .btn-edit-profile:hover, .btn-add-exercise:hover {
+            background-color: var(--primary-color-dark);
+            transform: translateY(-2px);
+        }
+
+        .btn-add-plan, .btn-refresh-advice {
+            width: 100%;
+            margin-top: 25px;
+        }
+        .btn-add-exercise {
+            margin-left: auto;
+            padding: 8px 12px;
+        }
+         .btn-add-exercise i {
+            font-size: 0.9em;
+         }
+
+
+        .user-card {
+            display: flex;
+            align-items: center;
+        }
+
+        .user-card img {
+            border-radius: 50%;
+            margin-right: 18px;
+            width: 55px;
+            height: 55px;
+            object-fit: cover;
+            border: 2px solid var(--primary-color);
+        }
+
+        .user-card div {
+            flex-grow: 1;
+        }
+
+        .user-card .btn-follow {
+            background-color: var(--secondary-color);
+            margin-left: 12px;
+        }
+        .user-card .btn-follow:hover {
+            background-color: var(--secondary-color-dark);
+        }
+
+        /* Profilo */
+        .profile-info {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+        .profile-pic {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 15px;
+            border: 4px solid var(--primary-color);
+            box-shadow: 0 0 15px rgba(0, 123, 255, 0.3);
+        }
+        .btn-edit-profile {
+            margin: 20px auto 0;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 12px;
+            text-align: center;
+            margin-top: 20px;
+        }
+        .stat-item {
+            background-color: var(--light-gray);
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid var(--medium-gray);
+        }
+        .stat-item span {
+            display: block;
+            font-size: 0.85em;
+            color: var(--dark-gray);
+            margin-bottom: 5px;
+        }
+        .stat-item strong {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.6em;
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        /* Catalogo Esercizi */
+        .search-bar-container {
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            border: 1px solid var(--medium-gray);
+            border-radius: 8px;
+            padding: 8px 12px;
+            background-color: #fff;
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.06);
+        }
+        .search-bar-container i {
+            color: var(--dark-gray);
+            margin-right: 10px;
+        }
+        .search-bar-container input {
+            border: none;
+            outline: none;
+            flex-grow: 1;
+            font-size: 1em;
+            font-family: 'Roboto', sans-serif;
+        }
+        .exercise-group-title {
+            font-family: 'Montserrat', sans-serif;
+            margin-top: 25px;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+            color: var(--text-color);
+            font-weight: 600;
+            border-bottom: 1px solid var(--medium-gray);
+            padding-bottom: 8px;
+        }
+        .exercise-item-card {
+            display: flex;
+            align-items: center;
+            padding: 12px 18px;
+        }
+        .exercise-item-card .exercise-icon {
+            font-size: 2em;
+            color: var(--primary-color);
+            margin-right: 18px;
+            width: 35px;
+            text-align: center;
+        }
+        .exercise-item-card .exercise-details {
+            flex-grow: 1;
+        }
+        .exercise-item-card h4 {
+            font-size: 1.05em;
+            margin-bottom: 4px;
+        }
+        .exercise-item-card p {
+            font-size: 0.85em;
+            color: var(--dark-gray);
+            margin: 0;
+        }
+
+
+        /* Stili per la Legenda */
+        .legenda-container {
+            width: 100%;
+            max-width: 700px; /* Aumentata larghezza legenda */
+            margin-top: 30px;
+            background-color: #fff;
+            padding: 25px 30px; /* Aumentato padding */
+            border-radius: 12px; /* Bordi più arrotondati */
+            box-shadow: var(--card-shadow);
+        }
+        .legenda-container h3 {
+            font-family: 'Montserrat', sans-serif;
+            text-align: center;
+            color: var(--primary-color);
+            margin-top: 0;
+            margin-bottom: 25px;
+            border-bottom: 2px solid var(--medium-gray);
+            padding-bottom: 15px;
+            font-size: 1.6em;
+            font-weight: 600;
+        }
+        .legenda-item {
+            margin-bottom: 20px;
+            display: flex;
+            align-items: flex-start;
+        }
+        .legenda-item i {
+            font-size: 1.8em; /* Icone legenda più grandi */
+            color: var(--primary-color);
+            margin-right: 20px;
+            margin-top: 5px;
+            width: 30px;
+            text-align: center;
+        }
+        .legenda-item div {
+            flex: 1;
+        }
+        .legenda-item strong {
+            font-family: 'Montserrat', sans-serif;
+            display: block;
+            color: var(--text-color);
+            margin-bottom: 5px;
+            font-size: 1.1em;
+            font-weight: 600;
+        }
+        .legenda-item p {
+            font-size: 0.95em;
+            color: #555;
+            margin: 0;
+            line-height: 1.5;
+        }
+
+        /* Media Query per schermi più piccoli (se necessario) */
+        @media (max-width: 420px) {
+            .iphone-mockup {
+                width: 95%; /* Adatta a schermi più piccoli */
+                height: auto; /* Altezza automatica per mantenere proporzioni */
+                min-height: 700px; /* Altezza minima per leggibilità */
+                padding: 15px;
+            }
+            .iphone-notch {
+                width: 180px;
+                height: 28px;
+            }
+            header h1 {
+                font-size: 2.2em;
+            }
+            .app-section h2 {
+                font-size: 1.6em;
+            }
+            .nav-item span {
+                font-size: 0.65em; /* Riduci testo menu su schermi piccoli */
+            }
+            .nav-item i {
+                font-size: 1.4em;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Fitness Tracker Hub.bo anteprima</h1>
+    </header>
+
+    <div class="center-wrapper">
+        <main>
+            <div class="iphone-mockup">
+                <div class="iphone-screen">
+                    <!-- Top bar -->
+                    <div class="status-bar">
+                        <span>9:41</span>
+                        <div>
+                            <i class="fas fa-signal"></i>
+                            <i class="fas fa-wifi"></i>
+                            <i class="fas fa-battery-full"></i>
+                        </div>
+                    </div>
+
+                    <!-- App Content Area -->
+                    <div class="app-content">
+                        <!-- Sezione Allenamenti (Default) -->
+                        <div id="allenamenti" class="app-section active-section">
+                            <h2><i class="fas fa-dumbbell"></i> I Miei Piani</h2>
+                            <div class="content-scrollable">
+                                <div class="plan-card">
+                                    <h3>Forza Giorno A</h3>
+                                    <p>Pettorali, Tricipiti, Spalle. Concentrati sulla progressione del carico.</p>
+                                    <button class="btn-start">Inizia Workout</button>
+                                </div>
+                                <div class="plan-card">
+                                    <h3>Cardio Intenso</h3>
+                                    <p>30 minuti HIIT per bruciare calorie e migliorare la resistenza.</p>
+                                    <button class="btn-start">Inizia Sessione</button>
+                                </div>
+                                <div class="plan-card">
+                                    <h3>Flessibilità Mattutina</h3>
+                                    <p>Yoga e Stretching per migliorare la mobilità e iniziare bene la giornata.</p>
+                                    <button class="btn-start">Inizia Stretching</button>
+                                </div>
+                                <button class="btn-add-plan"><i class="fas fa-plus"></i> Crea o Carica Piano</button>
+                            </div>
+                        </div>
+
+                        <!-- Sezione Catalogo Esercizi -->
+                        <div id="catalogo" class="app-section">
+                            <h2><i class="fas fa-book-open"></i> Catalogo Esercizi</h2>
+                            <div class="search-bar-container">
+                                <i class="fas fa-search"></i>
+                                <input type="text" placeholder="Cerca esercizio, es. 'Panca Piana'...">
+                            </div>
+                            <div class="content-scrollable">
+                                <h3 class="exercise-group-title">Pettorali</h3>
+                                <div class="exercise-item-card">
+                                    <i class="exercise-icon fas fa-weight-hanging"></i>
+                                    <div class="exercise-details">
+                                        <h4>Panca Piana Bilanciere</h4>
+                                        <p>Fondamentale per la forza e massa del petto.</p>
+                                    </div>
+                                    <button class="btn-add-exercise" title="Aggiungi al piano"><i class="fas fa-plus"></i></button>
+                                </div>
+                                <div class="exercise-item-card">
+                                    <i class="exercise-icon fas fa-dumbbell"></i>
+                                    <div class="exercise-details">
+                                        <h4>Spinte Manubri Panca Inclinata</h4>
+                                        <p>Enfasi sulla parte alta del pettorale.</p>
+                                    </div>
+                                    <button class="btn-add-exercise" title="Aggiungi al piano"><i class="fas fa-plus"></i></button>
+                                </div>
+                                <div class="exercise-item-card">
+                                    <i class="exercise-icon fas fa-compress-alt"></i> <!-- Icona per dips o croci -->
+                                    <div class="exercise-details">
+                                        <h4>Croci ai Cavi</h4>
+                                        <p>Isolamento e contrazione di picco.</p>
+                                    </div>
+                                    <button class="btn-add-exercise" title="Aggiungi al piano"><i class="fas fa-plus"></i></button>
+                                </div>
+
+                                <h3 class="exercise-group-title">Dorsali</h3>
+                                <div class="exercise-item-card">
+                                    <i class="exercise-icon fas fa-person-hiking"></i> <!-- Più generica per pull-up -->
+                                    <div class="exercise-details">
+                                        <h4>Trazioni alla Sbarra (Pull-up)</h4>
+                                        <p>Costruttore di ampiezza per la schiena.</p>
+                                    </div>
+                                    <button class="btn-add-exercise" title="Aggiungi al piano"><i class="fas fa-plus"></i></button>
+                                </div>
+                                <div class="exercise-item-card">
+                                    <i class="exercise-icon fas fa-anchor"></i>
+                                    <div class="exercise-details">
+                                        <h4>Rematore con Bilanciere</h4>
+                                        <p>Spessore per la parte centrale della schiena.</p>
+                                    </div>
+                                    <button class="btn-add-exercise" title="Aggiungi al piano"><i class="fas fa-plus"></i></button>
+                                </div>
+                                 <div class="exercise-item-card">
+                                    <i class="exercise-icon fas fa-arrows-down-to-line"></i> <!-- Icona per Lat Machine -->
+                                    <div class="exercise-details">
+                                        <h4>Lat Machine Avanti</h4>
+                                        <p>Sviluppo dei gran dorsali.</p>
+                                    </div>
+                                    <button class="btn-add-exercise" title="Aggiungi al piano"><i class="fas fa-plus"></i></button>
+                                </div>
+
+
+                                <h3 class="exercise-group-title">Gambe</h3>
+                                 <div class="exercise-item-card">
+                                    <i class="exercise-icon fas fa-person-dots-from-line"></i> <!-- Icona per squat -->
+                                    <div class="exercise-details">
+                                        <h4>Squat con Bilanciere</h4>
+                                        <p>Re degli esercizi per lo sviluppo delle gambe.</p>
+                                    </div>
+                                    <button class="btn-add-exercise" title="Aggiungi al piano"><i class="fas fa-plus"></i></button>
+                                </div>
+                                <div class="exercise-item-card">
+                                    <i class="exercise-icon fas fa-shoe-prints"></i>
+                                    <div class="exercise-details">
+                                        <h4>Leg Press</h4>
+                                        <p>Alternativa o complemento allo squat per la massa.</p>
+                                    </div>
+                                    <button class="btn-add-exercise" title="Aggiungi al piano"><i class="fas fa-plus"></i></button>
+                                </div>
+                                <div class="exercise-item-card">
+                                    <i class="exercise-icon fas fa-person-walking-luggage"></i> <!-- Icona per affondi -->
+                                    <div class="exercise-details">
+                                        <h4>Affondi con Manubri</h4>
+                                        <p>Ottimo per glutei, quadricipiti e stabilità.</p>
+                                    </div>
+                                    <button class="btn-add-exercise" title="Aggiungi al piano"><i class="fas fa-plus"></i></button>
+                                </div>
+                                 <h3 class="exercise-group-title">Addominali</h3>
+                                 <div class="exercise-item-card">
+                                    <i class="exercise-icon fas fa-child-reaching"></i>
+                                    <div class="exercise-details">
+                                        <h4>Crunch a Terra</h4>
+                                        <p>Esercizio base per gli addominali superiori.</p>
+                                    </div>
+                                    <button class="btn-add-exercise" title="Aggiungi al piano"><i class="fas fa-plus"></i></button>
+                                </div>
+                                 <div class="exercise-item-card">
+                                    <i class="exercise-icon fas fa-bridge"></i> <!-- Icona per Plank -->
+                                    <div class="exercise-details">
+                                        <h4>Plank</h4>
+                                        <p>Rinforza il core e migliora la stabilità.</p>
+                                    </div>
+                                    <button class="btn-add-exercise" title="Aggiungi al piano"><i class="fas fa-plus"></i></button>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <!-- Sezione Community -->
+                        <div id="community" class="app-section">
+                            <h2><i class="fas fa-users"></i> Community Hub</h2>
+                            <div class="content-scrollable">
+                                <div class="user-card">
+                                    <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="User 1">
+                                    <div>
+                                        <h4>Marco F.</h4>
+                                        <p>Ultimo allenamento: Ieri, Full Body</p>
+                                    </div>
+                                    <button class="btn-follow"><i class="fas fa-user-plus"></i> Segui</button>
+                                </div>
+                                <div class="user-card">
+                                    <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="User 2">
+                                    <div>
+                                        <h4>Giulia R.</h4>
+                                        <p>Obiettivo: Mezza Maratona</p>
+                                    </div>
+                                    <button class="btn-follow"><i class="fas fa-user-plus"></i> Segui</button>
+                                </div>
+                                 <div class="user-card">
+                                    <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="User 3">
+                                    <div>
+                                        <h4>Alex P.</h4>
+                                        <p>Record Panca: 120kg! <i class="fas fa-trophy" style="color: gold;"></i></p>
+                                    </div>
+                                    <button class="btn-follow"><i class="fas fa-user-plus"></i> Segui</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Sezione Consigli Alimentari -->
+                        <div id="consigli" class="app-section">
+                            <h2><i class="fas fa-utensils"></i> Nutrizione Smart</h2>
+                            <div class="content-scrollable">
+                                <div class="advice-card">
+                                    <h4><i class="fas fa-tint" style="color: #3498db;"></i> Idratazione Ottimale</h4>
+                                    <p>Bevi almeno 2-3 litri d'acqua al giorno. Aumenta l'apporto durante e dopo l'allenamento per massimizzare le prestazioni e il recupero.</p>
+                                </div>
+                                <div class="advice-card">
+                                    <h4><i class="fas fa-drumstick-bite" style="color: #e67e22;"></i> Proteine Post-Workout</h4>
+                                    <p>Consuma 20-30g di proteine di alta qualità (es. siero, pollo, uova, legumi) entro 60 minuti dalla fine dell'allenamento per favorire la riparazione e la crescita muscolare.</p>
+                                </div>
+                                 <div class="advice-card">
+                                    <h4><i class="fas fa-carrot" style="color: #2ecc71;"></i> Bilancia i Macronutrienti</h4>
+                                    <p>Assicurati che ogni pasto sia bilanciato con carboidrati complessi per energia, proteine per i muscoli e grassi sani per le funzioni corporee.</p>
+                                </div>
+                                <button class="btn-refresh-advice"><i class="fas fa-sync-alt"></i> Altri Consigli</button>
+                            </div>
+                        </div>
+                         <!-- Sezione Profilo -->
+                        <div id="profilo" class="app-section">
+                            <h2><i class="fas fa-user-cog"></i> Il Mio Profilo</h2>
+                            <div class="content-scrollable">
+                                <div class="profile-info">
+                                    <img src="https://randomuser.me/api/portraits/lego/1.jpg" alt="Mio Profilo" class="profile-pic">
+                                    <h3>Chris Power</h3>
+                                    <p>Email: chris.power@example.com</p>
+                                    <p>Obiettivo Attuale: Aumento Massa Muscolare</p>
+                                    <button class="btn-edit-profile"><i class="fas fa-edit"></i> Modifica Profilo</button>
+                                </div>
+                                <h4>Le Mie Statistiche</h4>
+                                <div class="stats-grid">
+                                    <div class="stat-item"><span>Allenamenti Mese</span><strong>18</strong></div>
+                                    <div class="stat-item"><span>Kcal Totali</span><strong>32500</strong></div>
+                                    <div class="stat-item"><span>Piani Attivi</span><strong>3</strong></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Bottom Navigation Menu -->
+                    <nav class="bottom-nav">
+                        <div class="nav-item active" data-target="allenamenti">
+                            <i class="fas fa-dumbbell"></i>
+                            <span>Piani</span>
+                        </div>
+                        <div class="nav-item" data-target="catalogo">
+                            <i class="fas fa-book-open"></i>
+                            <span>Esercizi</span>
+                        </div>
+                        <div class="nav-item" data-target="community">
+                            <i class="fas fa-users"></i>
+                            <span>Community</span>
+                        </div>
+                        <div class="nav-item" data-target="consigli">
+                            <i class="fas fa-utensils"></i>
+                            <span>Nutrizione</span>
+                        </div>
+                         <div class="nav-item" data-target="profilo">
+                            <i class="fas fa-user-cog"></i>
+                            <span>Profilo</span>
+                        </div>
+                    </nav>
+                </div>
+                <div class="iphone-notch"></div>
+            </div>
+
+            <!-- Legenda Funzionalità -->
+            <div class="legenda-container">
+                <h3><i class="fas fa-info-circle"></i> Guida alle Funzionalità dell'App</h3>
+                <div class="legenda-item">
+                    <i class="fas fa-dumbbell"></i>
+                    <div>
+                        <strong>Piani di Allenamento</strong>
+                        <p>Crea, carica e gestisci i tuoi programmi di allenamento personalizzati. Avvia le sessioni di workout e tieni traccia dei tuoi progressi per ogni esercizio.</p>
+                    </div>
+                </div>
+                <div class="legenda-item">
+                    <i class="fas fa-book-open"></i>
+                    <div>
+                        <strong>Catalogo Esercizi</strong>
+                        <p>Esplora una vasta libreria di esercizi filtrabili per gruppo muscolare o equipaggiamento. Trova nuovi movimenti e aggiungili facilmente ai tuoi piani di allenamento.</p>
+                    </div>
+                </div>
+                <div class="legenda-item">
+                    <i class="fas fa-users"></i>
+                    <div>
+                        <strong>Community Hub</strong>
+                        <p>Connettiti con altri appassionati di fitness, condividi i tuoi risultati, trova ispirazione e motiva gli altri membri della community. Visualizza i profili e segui chi ti interessa.</p>
+                    </div>
+                </div>
+                <div class="legenda-item">
+                    <i class="fas fa-utensils"></i>
+                    <div>
+                        <strong>Nutrizione Smart</strong>
+                        <p>Accedi a consigli alimentari personalizzati, scopri strategie nutrizionali per supportare i tuoi obiettivi di fitness e ricevi idee per pasti sani ed equilibrati.</p>
+                    </div>
+                </div>
+                <div class="legenda-item">
+                    <i class="fas fa-user-cog"></i>
+                    <div>
+                        <strong>Profilo Personale</strong>
+                        <p>Visualizza le tue statistiche dettagliate, monitora i progressi nel tempo, gestisci le tue informazioni personali e personalizza le impostazioni dell'applicazione.</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const navItems = document.querySelectorAll('.nav-item');
+            const appSections = document.querySelectorAll('.app-section');
+
+            function showSection(targetId) {
+                appSections.forEach(section => {
+                    section.classList.toggle('active-section', section.id === targetId);
+                });
+            }
+
+            navItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    navItems.forEach(nav => nav.classList.remove('active'));
+                    this.classList.add('active');
+                    const targetSectionId = this.getAttribute('data-target');
+                    showSection(targetSectionId);
+                });
+            });
+
+            const defaultNavItem = document.querySelector('.nav-item.active');
+            if (defaultNavItem) {
+                showSection(defaultNavItem.getAttribute('data-target'));
+            }
+
+            const addExerciseButtons = document.querySelectorAll('.btn-add-exercise');
+            addExerciseButtons.forEach(button => {
+                button.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const exerciseName = button.closest('.exercise-item-card').querySelector('h4').textContent;
+                    alert(`"${exerciseName}" aggiunto al piano (simulazione).`);
+                });
+            });
+
+            const addPlanButton = document.querySelector('.btn-add-plan');
+            if (addPlanButton) {
+                addPlanButton.addEventListener('click', () => {
+                    alert('Funzionalità "Crea o Carica Piano" non implementata in questo mockup.');
+                });
+            }
+
+            const refreshAdviceButton = document.querySelector('.btn-refresh-advice');
+            if (refreshAdviceButton) {
+                refreshAdviceButton.addEventListener('click', () => {
+                    alert('Nuovi consigli sulla nutrizione sarebbero caricati qui!');
+                });
+            }
+             const editProfileButton = document.querySelector('.btn-edit-profile');
+            if (editProfileButton) {
+                editProfileButton.addEventListener('click', () => {
+                    alert('La modifica del profilo non è implementata in questo mockup.');
+                });
+            }
+        });
+    </script>
+</body>
+</html>
